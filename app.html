@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Notas</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-left">
+    <h1>📚 Mis Notas</h1>
+  </div>
+  <div class="topbar-right">
+    <select id="trimestre-select">
+      <option value="1">1er Trimestre</option>
+      <option value="2">2do Trimestre</option>
+      <option value="3">3er Trimestre</option>
+    </select>
+    <span id="user-name"></span>
+    <button id="logout-btn" class="btn-ghost">Salir</button>
+  </div>
+</header>
+
+<nav class="view-tabs">
+  <button class="view-tab active" data-view="dashboard">Materias</button>
+  <button class="view-tab" data-view="boletin">Boletín</button>
+</nav>
+
+<main>
+  <!-- DASHBOARD -->
+  <section id="view-dashboard" class="view active">
+    <div class="section-header">
+      <h2>Mis materias</h2>
+      <button id="add-materia-btn" class="btn-primary">+ Agregar materia</button>
+    </div>
+    <div id="materias-grid" class="materias-grid"></div>
+  </section>
+
+  <!-- BOLETIN -->
+  <section id="view-boletin" class="view">
+    <h2>Boletín — <span id="boletin-trimestre-label"></span></h2>
+    <div class="boletin-summary" id="boletin-summary"></div>
+    <div class="table-wrap">
+      <table class="boletin-table">
+        <thead>
+          <tr>
+            <th>Materia</th>
+            <th>Diarias</th>
+            <th>Apreciación</th>
+            <th>Examen</th>
+            <th>Nota Final</th>
+            <th>Ausencias</th>
+          </tr>
+        </thead>
+        <tbody id="boletin-body"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- MODAL: Agregar materia -->
+<div id="modal-materia" class="modal">
+  <div class="modal-content">
+    <h3>Nueva materia</h3>
+    <label>Nombre</label>
+    <input type="text" id="materia-nombre" placeholder="ej. Matemática">
+    <label>Profesor (opcional)</label>
+    <input type="text" id="materia-profesor">
+    <div class="quick-add">
+      <p>Agregar comunes:</p>
+      <div id="quick-add-list" class="quick-add-list"></div>
+    </div>
+    <div class="modal-actions">
+      <button id="materia-cancel" class="btn-ghost">Cancelar</button>
+      <button id="materia-guardar" class="btn-primary">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Detalle de materia -->
+<div id="modal-detalle" class="modal">
+  <div class="modal-content modal-large">
+    <div class="modal-header">
+      <h3 id="detalle-materia-nombre"></h3>
+      <button id="detalle-eliminar" class="btn-danger-ghost">Eliminar materia</button>
+    </div>
+
+    <div class="detalle-tabs">
+      <button class="detalle-tab active" data-detalle="notas">Notas</button>
+      <button class="detalle-tab" data-detalle="ausencias">Ausencias</button>
+    </div>
+
+    <div id="detalle-notas" class="detalle-content active">
+      <div class="resumen-notas" id="resumen-notas"></div>
+      <form id="form-nota" class="inline-form">
+        <select id="nota-tipo">
+          <option value="diaria">Diaria</option>
+          <option value="apreciacion">Apreciación</option>
+          <option value="examen">Examen</option>
+        </select>
+        <input type="number" id="nota-valor" placeholder="Nota (0-100)" min="0" max="100" step="0.1" required>
+        <input type="text" id="nota-descripcion" placeholder="Descripción (opcional)">
+        <button type="submit" class="btn-primary">Agregar</button>
+      </form>
+      <ul id="lista-notas" class="lista-items"></ul>
+    </div>
+
+    <div id="detalle-ausencias" class="detalle-content">
+      <form id="form-ausencia" class="inline-form">
+        <input type="date" id="ausencia-fecha">
+        <label class="checkbox-label"><input type="checkbox" id="ausencia-justificada"> Justificada</label>
+        <input type="text" id="ausencia-motivo" placeholder="Motivo (opcional)">
+        <button type="submit" class="btn-primary">Registrar</button>
+      </form>
+      <ul id="lista-ausencias" class="lista-items"></ul>
+    </div>
+
+    <button id="detalle-cerrar" class="btn-ghost modal-close-btn">Cerrar</button>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
